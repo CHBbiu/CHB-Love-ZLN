@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的故事</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 添加爱心特效容器 -->
+    <div class="love-animation" id="loveAnimation"></div>
+
+    <div class="sidebar">
+        <div class="logo">
+            <img src="logo.jpeg" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">首页</a></li>
+                <li><a href="gallery.html">照片墙</a></li>
+                <li><a href="about.html">关于我们</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="main-content">
+        <div class="hero-section">
+            <img src="img1.jpg" alt="封面图片" class="hero-image">
+            <div class="hero-text">
+                <h1>HAPPY MEMORIES</h1>
+                <div class="signature">❤️</div>
+            </div>
+        </div>
+
+        <!-- 添加我们的故事段落 -->
+        <div class="our-story">
+            <h2>我们的故事</h2>
+            <div class="story-content">
+                <p>我们的故事始于那个偶然的瞬间，你弯腰捡起我遗落的一卡通，仿佛命运早已安排好这场相遇。</p>
+                
+                <p>从那时起，我的大学生活因你而熠熠生辉。我们一起踏遍了这座城市的角角落落，看过晨曦初照的校园，漫步在樱花纷飞的小径，也曾在异地他乡的街头巷尾留下足迹。</p>
+                
+                <p>那些并肩而行的日子，是你给了我勇气去拥抱未知与美好。记得那个特别的夜晚，在陪伴你的下，我完成了人生中许多个'第一次'的尝试。</p>
+                
+                <p>如今回望，那些点点滴滴都如同藏珍的珍珠，串联成动最人的项链。</p>
+                
+                <p class="story-ending">亲爱的，我们的故事才刚刚开始，未来还有更多浪漫的篇章我们等待共同书写。</p>
+            </div>
+        </div>
+
+        <!-- 修改卡片布局 -->
+        <div class="memory-cards">
+            <h2 class="cards-title">我们的回忆</h2>
+            <div class="grid-gallery">
+                <!-- 第一行 -->
+                <div class="gallery-item">
+                    <div class="card-frame">
+                        <img src="卡片1.jpg" alt="甜蜜时光">
+                        <div class="item-caption">
+                            <h3 onclick="editTitle(this)">甜蜜时光</h3>
+                            <button onclick="changeImage(this)" class="read-more">更换图片</button>
+                        </div>
+                        <div class="card-corner top-left"></div>
+                        <div class="card-corner top-right"></div>
+                        <div class="card-corner bottom-left"></div>
+                        <div class="card-corner bottom-right"></div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="card-frame">
+                        <img src="卡片2.jpg" alt="浪漫瞬间">
+                        <div class="item-caption">
+                            <h3 onclick="editTitle(this)">浪漫瞬间</h3>
+                            <button onclick="changeImage(this)" class="read-more">更换图片</button>
+                        </div>
+                        <div class="card-corner top-left"></div>
+                        <div class="card-corner top-right"></div>
+                        <div class="card-corner bottom-left"></div>
+                        <div class="card-corner bottom-right"></div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="card-frame">
+                        <img src="卡片3.jpg" alt="美好回忆">
+                        <div class="item-caption">
+                            <h3 onclick="editTitle(this)">美好回忆</h3>
+                            <button onclick="changeImage(this)" class="read-more">更换图片</button>
+                        </div>
+                        <div class="card-corner top-left"></div>
+                        <div class="card-corner top-right"></div>
+                        <div class="card-corner bottom-left"></div>
+                        <div class="card-corner bottom-right"></div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="card-frame">
+                        <img src="卡片4.jpg" alt="幸福时刻">
+                        <div class="item-caption">
+                            <h3 onclick="editTitle(this)">幸福时刻</h3>
+                            <button onclick="changeImage(this)" class="read-more">更换图片</button>
+                        </div>
+                        <div class="card-corner top-left"></div>
+                        <div class="card-corner top-right"></div>
+                        <div class="card-corner bottom-left"></div>
+                        <div class="card-corner bottom-right"></div>
+                    </div>
+                </div>
+
+                <!-- 第二行 -->
+                <div class="gallery-item">
+                    <div class="card-frame">
+                        <img src="卡片5.jpg" alt="温馨日常">
+                        <div class="item-caption">
+                            <h3 onclick="editTitle(this)">温馨日常</h3>
+                            <button onclick="changeImage(this)" class="read-more">更换图片</button>
+                        </div>
+                        <div class="card-corner top-left"></div>
+                        <div class="card-corner top-right"></div>
+                        <div class="card-corner bottom-left"></div>
+                        <div class="card-corner bottom-right"></div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="card-frame">
+                        <img src="卡片6.jpg" alt="快乐点滴">
+                        <div class="item-caption">
+                            <h3 onclick="editTitle(this)">快乐点滴</h3>
+                            <button onclick="changeImage(this)" class="read-more">更换图片</button>
+                        </div>
+                        <div class="card-corner top-left"></div>
+                        <div class="card-corner top-right"></div>
+                        <div class="card-corner bottom-left"></div>
+                        <div class="card-corner bottom-right"></div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="card-frame">
+                        <img src="卡片7.jpg" alt="珍贵时光">
+                        <div class="item-caption">
+                            <h3 onclick="editTitle(this)">珍贵时光</h3>
+                            <button onclick="changeImage(this)" class="read-more">更换图片</button>
+                        </div>
+                        <div class="card-corner top-left"></div>
+                        <div class="card-corner top-right"></div>
+                        <div class="card-corner bottom-left"></div>
+                        <div class="card-corner bottom-right"></div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="card-frame">
+                        <img src="卡片8.jpg" alt="难忘回忆">
+                        <div class="item-caption">
+                            <h3 onclick="editTitle(this)">难忘回忆</h3>
+                            <button onclick="changeImage(this)" class="read-more">更换图片</button>
+                        </div>
+                        <div class="card-corner top-left"></div>
+                        <div class="card-corner top-right"></div>
+                        <div class="card-corner bottom-left"></div>
+                        <div class="card-corner bottom-right"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 添加贴纸容器 -->
+        <div class="stickers">
+            <img src="贴纸1.jpg" alt="想你" class="sticker sticker-top-left">
+            <img src="贴纸2.jpg" alt="睡觉" class="sticker sticker-top-right">
+            <img src="贴纸3.gif" alt="喝奶茶" class="sticker sticker-middle-left">
+            <img src="贴纸4.jpg" alt="睡觉" class="sticker sticker-middle-right">
+            <img src="贴纸5.gif" alt="结婚" class="sticker sticker-bottom-left">
+            <img src="贴纸6.jpg" alt="生气" class="sticker sticker-bottom-right">
+        </div>
+
+        <!-- 在 main-content 中添加照片墙部分 -->
+        <div class="section" id="gallery">
+            <div class="gallery-container">
+                <div class="upload-section">
+                    <label for="imageUpload" class="upload-button">
+                        <span>上传照片</span>
+                        <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                    </label>
+                </div>
+                <div class="photo-grid" id="photoGrid">
+                    <!-- 这里会通过 JavaScript 动态添加照片 -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="ai-assistant" id="aiAssistant">
+        <div class="assistant-header">
+            <span>AI 智能助手</span>
+            <button onclick="closeAssistant()">关闭</button>
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <input type="text" id="aiInput" placeholder="和我聊天吧...">
+        <button type="button" id="sendButton" onclick="sendMessage()">发送</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

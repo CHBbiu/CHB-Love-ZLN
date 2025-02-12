@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ffd1dc, #ff8ba7);
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        h2 {
+            color: #ff6b8b;
+            margin-bottom: 30px;
+        }
+        
+        input {
+            width: 250px;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ffd1dc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #ff8ba7;
+        }
+        
+        button {
+            background: #ff8ba7;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #ff6b8b;
+            transform: translateY(-2px);
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>欢迎访问</h2>
+        <input type="password" id="password" placeholder="请输入密码">
+        <br>
+        <button onclick="checkPassword()">进入</button>
+        <p class="error-message" id="errorMessage">密码错误，请重试</p>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (password === '123456') {
+                // 将登录状态保存到 sessionStorage
+                sessionStorage.setItem('isLoggedIn', 'true');
+                // 跳转到主页面（改为 main.html）
+                window.location.href = 'main.html';
+            } else {
+                errorMessage.style.display = 'block';
+                document.getElementById('password').value = '';
+            }
+        }
+
+        // 添加回车键支持
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html> 

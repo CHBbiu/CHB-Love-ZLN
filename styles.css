@@ -1,0 +1,1678 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #fff5f5;
+}
+
+/* 顶部导航栏样式 */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.top-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left, .nav-right {
+    flex: 1;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-right {
+    justify-content: flex-end;
+}
+
+.top-nav a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.top-nav a:hover {
+    color: #ff8ba7;
+}
+
+.logo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffd1dc;
+}
+
+/* 主要内容区域 */
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 550px);
+    padding: 120px 300px 120px 120px;
+    position: relative;
+    z-index: 1;
+}
+
+/* 大标题区域 */
+.hero-section {
+    position: relative;
+    height: 80vh;
+    overflow: hidden;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+.main-title {
+    font-size: 4em;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+}
+
+/* 照片展示区样式保持不变 */
+.grid-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    padding: 15px;
+    background: linear-gradient(45deg, #fff5f5, #fff);
+    border-radius: 20px;
+    overflow: visible;
+    transition: transform 0.3s ease;
+}
+
+.card-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* 添加装饰性边框 */
+.card-frame::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ffb6c1, #ffd1dc);
+    border-radius: 17px;
+    z-index: -1;
+}
+
+/* 添加角落装饰 */
+.card-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffd1dc;
+    z-index: 2;
+}
+
+.top-left {
+    top: -5px;
+    left: -5px;
+    border-right: none;
+    border-bottom: none;
+    border-radius: 5px 0 0 0;
+}
+
+.top-right {
+    top: -5px;
+    right: -5px;
+    border-left: none;
+    border-bottom: none;
+    border-radius: 0 5px 0 0;
+}
+
+.bottom-left {
+    bottom: -5px;
+    left: -5px;
+    border-right: none;
+    border-top: none;
+    border-radius: 0 0 0 5px;
+}
+
+.bottom-right {
+    bottom: -5px;
+    right: -5px;
+    border-left: none;
+    border-top: none;
+    border-radius: 0 0 5px 0;
+}
+
+/* 优化卡片悬停效果 */
+.gallery-item:hover {
+    transform: translateY(-10px);
+}
+
+.gallery-item:hover .card-frame::before {
+    background: linear-gradient(45deg, #ff8ba7, #ffb6c1);
+}
+
+/* 优化标题和按钮样式 */
+.item-caption {
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.item-caption h3 {
+    font-size: 1.3em;
+    color: #fff;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.read-more {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+.read-more:hover {
+    background: #fff;
+    color: #ff8ba7;
+    transform: translateY(-2px);
+}
+
+/* 添加图片过渡效果 */
+.card-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+/* 添加响应式调整 */
+@media (max-width: 768px) {
+    .gallery-item {
+        padding: 10px;
+    }
+    
+    .card-corner {
+        width: 15px;
+        height: 15px;
+    }
+    
+    .item-caption h3 {
+        font-size: 1.1em;
+    }
+}
+
+.sidebar {
+    width: 250px;
+    background: rgba(45, 45, 45, 0.85);
+    color: white;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    background-image: linear-gradient(
+        to bottom,
+        rgba(45, 45, 45, 0.7),
+        rgba(45, 45, 45, 0.4)
+    ), url('背景1.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(5px);
+    z-index: 100;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.logo img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ffd1dc;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+    border-color: #ff8ba7;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    margin-top: 40px;
+}
+
+.sidebar nav a {
+    color: #ffd1dc;
+    text-decoration: none;
+    display: block;
+    padding: 12px 15px;
+    margin: 8px 0;
+    transition: 0.3s;
+    border-radius: 8px;
+    font-weight: 500;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.sidebar nav a:hover {
+    background: rgba(255, 139, 167, 0.8);
+    color: white;
+    transform: translateX(5px);
+}
+
+.chat-messages {
+    margin-top: 10px;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.user-message {
+    background: rgba(255, 139, 167, 0.2);
+    margin-left: auto;
+    color: white;
+}
+
+.ai-message {
+    background: rgba(255, 255, 255, 0.2);
+    margin-right: auto;
+    color: white;
+}
+
+.main-content::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    background: linear-gradient(
+        to left,
+        rgba(255, 255, 255, 0.95),
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0)
+    );
+    z-index: -2;
+}
+
+.main-content::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    background-image: url('背景2.gif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: -3;
+    transform: translateZ(-1px);
+    transition: opacity 0.3s ease;
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-text h1 {
+    font-size: 4.5em;
+    margin-bottom: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    background: linear-gradient(45deg, #ff8ba7, #ffd1dc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.gallery-item.large {
+    grid-column: span 2;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+    animation: none;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.item-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 25px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: white;
+}
+
+.item-caption h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #ffd1dc;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.item-caption h3:hover {
+    color: #ff8ba7;
+}
+
+.item-caption h3:hover::after {
+    content: ' (点击编辑)';
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+
+.read-more {
+    color: white;
+    text-decoration: none;
+    padding: 8px 20px;
+    border: 2px solid #ffd1dc;
+    background: rgba(255, 139, 167, 0.5);
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 15px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.read-more:hover {
+    background: #ff8ba7;
+    border-color: #ff8ba7;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(255,139,167,0.3);
+}
+
+.blog-section {
+    padding: 30px;
+    background: white;
+    grid-column: span 2;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.blog-section h2 {
+    color: #ff6b8b;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.blog-posts article {
+    padding: 20px;
+    background: #fff5f5;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.blog-posts article:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255,139,167,0.2);
+}
+
+.blog-posts h3 {
+    color: #2d2d2d;
+    margin-bottom: 10px;
+}
+
+.blog-posts p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+header {
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover, nav a.active {
+    color: #007bff;
+    background-color: #f0f7ff;
+}
+
+.section {
+    display: none;
+    padding: 2rem;
+}
+
+.section.active {
+    display: block;
+}
+
+.carousel-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+.carousel-slides {
+    position: relative;
+    height: 600px;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    padding: 2rem 1rem 1rem;
+    text-align: center;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.9);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.carousel-button:hover {
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.prev { left: 1rem; }
+.next { right: 1rem; }
+
+.carousel-dots {
+    position: absolute;
+    bottom: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.8rem;
+    padding: 0.5rem;
+    background: rgba(0,0,0,0.3);
+    border-radius: 1rem;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot:hover {
+    background: rgba(255,255,255,0.8);
+}
+
+.dot.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+footer {
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+.social-links {
+    margin-top: 1rem;
+}
+
+.social-links a {
+    margin: 0 1rem;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #007bff;
+}
+
+.love-story {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.love-story h3 {
+    color: #ff6b6b;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.love-story p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    text-indent: 2em;
+    color: #555;
+}
+
+.love-story p:last-child {
+    margin-bottom: 0;
+    font-style: italic;
+    color: #666;
+    text-align: right;
+}
+
+@media (max-width: 1200px) {
+    .main-content {
+        width: calc(100% - 250px);
+        padding: 120px 20px;
+    }
+    
+    .main-content::before,
+    .main-content::after {
+        width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-slides {
+        height: 400px;
+    }
+    
+    .carousel-button {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+
+    nav ul {
+        gap: 1rem;
+    }
+
+    nav a {
+        padding: 0.3rem 0.6rem;
+    }
+
+    .love-story {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .stickers img {
+        width: 60px;
+    }
+    
+    .sticker-top-left,
+    .sticker-middle-left,
+    .sticker-bottom-left {
+        left: 10px;
+    }
+    
+    .sticker-top-right,
+    .sticker-middle-right,
+    .sticker-bottom-right {
+        right: 320px;
+    }
+
+    .main-content::before,
+    .main-content::after {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-slides {
+        height: 300px;
+    }
+
+    .caption {
+        padding: 1rem 0.5rem 0.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* 添加贴纸样式 */
+.stickers img {
+    position: fixed;
+    width: 100px; /* 调整贴纸大小 */
+    z-index: 1001;
+    transition: all 0.3s ease;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+}
+
+.stickers img:hover {
+    transform: scale(1.1) rotate(5deg);
+    cursor: pointer;
+}
+
+/* 贴纸位置 */
+.sticker-top-left {
+    top: 20px;
+    left: 270px; /* 侧边栏宽度 + 20px */
+    animation: float 3s ease-in-out infinite;
+}
+
+.sticker-top-right {
+    top: 20px;
+    right: 320px;
+    animation: float 3s ease-in-out infinite 0.5s;
+}
+
+.sticker-middle-left {
+    top: 50%;
+    left: 270px;
+    transform: translateY(-50%);
+    animation: float 3s ease-in-out infinite 1s;
+}
+
+.sticker-middle-right {
+    top: 50%;
+    right: 320px;
+    transform: translateY(-50%);
+    animation: float 3s ease-in-out infinite 1.5s;
+}
+
+.sticker-bottom-left {
+    bottom: 20px;
+    left: 270px;
+    animation: float 3s ease-in-out infinite 2s;
+}
+
+.sticker-bottom-right {
+    bottom: 20px;
+    right: 320px;
+    animation: float 3s ease-in-out infinite 2.5s;
+}
+
+/* 漂浮动画 */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* 为特定贴纸添加特殊效果 */
+.sticker-top-left:hover {
+    filter: drop-shadow(0 0 10px rgba(255, 182, 193, 0.8));
+}
+
+.sticker-middle-right:hover {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+/* 添加贴纸悬停时的提示文本 */
+.stickers img::after {
+    content: attr(alt);
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.stickers img:hover::after {
+    opacity: 1;
+}
+
+/* 当鼠标悬停在主内容区域时，减弱背景透明度 */
+.main-content:hover::after {
+    opacity: 0.15;
+}
+
+/* 添加照片墙样式 */
+.gallery-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.upload-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.upload-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(45deg, #ff8ba7, #ffd1dc);
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(255, 139, 167, 0.2);
+}
+
+.upload-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 139, 167, 0.4);
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.photo-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.photo-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.photo-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.photo-item:hover img {
+    transform: scale(1.05);
+}
+
+.photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    padding: 20px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.photo-item:hover .photo-overlay {
+    opacity: 1;
+}
+
+.delete-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.photo-item:hover .delete-button {
+    opacity: 1;
+}
+
+/* 照片墙页面特定样式 */
+.gallery-page {
+    padding-top: 50px;
+}
+
+.gallery-title {
+    text-align: center;
+    color: #ff6b8b;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.photo-description {
+    margin-top: 10px;
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.edit-button {
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.photo-item:hover .edit-button {
+    opacity: 1;
+}
+
+/* 关于我们页面样式 */
+.about-page {
+    padding-top: 50px;
+}
+
+.about-title {
+    text-align: center;
+    color: #ff6b8b;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.notes-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.note-editor {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+#noteInput {
+    width: 100%;
+    height: 200px;
+    padding: 15px;
+    border: 2px solid #ffd1dc;
+    border-radius: 10px;
+    resize: vertical;
+    margin-bottom: 15px;
+    font-family: inherit;
+}
+
+.note-controls {
+    display: flex;
+    gap: 10px;
+}
+
+#noteTitle {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ffd1dc;
+    border-radius: 8px;
+}
+
+.save-button {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #ff8ba7, #ffd1dc);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255,139,167,0.3);
+}
+
+.note-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.note-card:hover {
+    transform: translateY(-3px);
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.note-date {
+    color: #888;
+    font-size: 0.9em;
+}
+
+.note-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.note-actions button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-button {
+    background: #ffd1dc;
+    color: #333;
+}
+
+.delete-button {
+    background: #ff6b6b;
+    color: white;
+}
+
+.note-actions button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.ai-assistant {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background: rgba(45, 45, 45, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+    color: white;
+    overflow: hidden;
+}
+
+.assistant-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #ff8ba7;
+    border-bottom: 1px solid #ffd1dc;
+}
+
+.assistant-header button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.chat-messages {
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ai-assistant input {
+    width: calc(100% - 20px);
+    margin: 10px;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.ai-assistant button {
+    width: calc(100% - 20px);
+    margin: 10px;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background: #ff8ba7;
+    color: white;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+    animation: none;
+}
+
+.read-more {
+    color: white;
+    text-decoration: none;
+    padding: 8px 20px;
+    border: 2px solid #ffd1dc;
+    background: rgba(255, 139, 167, 0.5);
+    border-radius: 20px;
+    display: inline-block;
+    margin-top: 15px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.read-more:hover {
+    background: #ff8ba7;
+    border-color: #ff8ba7;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(255,139,167,0.3);
+}
+
+/* 添加编辑标题的样式 */
+.edit-title {
+    width: 100%;
+    padding: 8px;
+    font-size: 1.5em;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #ffd1dc;
+    border-radius: 5px;
+    color: #333;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.edit-title:focus {
+    outline: none;
+    border-color: #ff8ba7;
+    box-shadow: 0 2px 8px rgba(255,139,167,0.3);
+}
+
+/* 可编辑文本的样式 */
+.editable {
+    cursor: text;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.editable:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.editable:hover::after {
+    content: ' (双击编辑)';
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+
+/* 编辑输入框样式 */
+.edit-title {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: inherit;
+    font-family: inherit;
+    color: #333;
+    width: 100%;
+}
+
+.edit-title:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 139, 167, 0.5);
+}
+
+/* 添加故事内容的样式 */
+.love-story-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(255, 139, 167, 0.1);
+    position: relative;
+}
+
+.love-story-container::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, #ffd1dc, #ff8ba7);
+    border-radius: 25px;
+    z-index: -1;
+    opacity: 0.3;
+}
+
+.story-title {
+    text-align: center;
+    color: #ff6b8b;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    font-family: 'Times New Roman', serif;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.story-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, #ffd1dc, #ff8ba7);
+    margin: 15px auto;
+    border-radius: 2px;
+}
+
+.story-text {
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: #555;
+}
+
+.story-text p {
+    margin-bottom: 20px;
+    text-indent: 2em;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.story-text p:hover {
+    transform: translateX(10px);
+    color: #333;
+}
+
+.story-ending {
+    text-align: right;
+    color: #ff6b8b;
+    font-style: italic;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px dashed #ffd1dc;
+}
+
+/* 添加响应式设计 */
+@media (max-width: 768px) {
+    .love-story-container {
+        margin: 30px 20px;
+        padding: 20px;
+    }
+    
+    .story-title {
+        font-size: 2em;
+    }
+    
+    .story-text {
+        font-size: 1em;
+    }
+}
+
+/* 修改记忆卡片容器样式 */
+.memory-cards-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+}
+
+.memory-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.memory-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.memory-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(255,139,167,0.2);
+}
+
+.memory-card:hover img {
+    transform: scale(1.1);
+}
+
+.card-content {
+    padding: 20px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.9), white);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-content h3 {
+    color: #ff6b8b;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+.card-content p {
+    color: #666;
+    font-size: 1em;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .memory-cards-container {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+    
+    .memory-card img {
+        height: 240px;
+    }
+}
+
+.our-story {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 40px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 192, 203, 0.2);
+    position: relative;
+}
+
+.our-story::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ffb6c1, #ffd1dc);
+    border-radius: 22px;
+    z-index: -1;
+}
+
+.our-story h2 {
+    text-align: center;
+    color: #ff69b4;
+    font-size: 2em;
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.our-story h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, #ffb6c1, #ffd1dc);
+}
+
+.story-content {
+    padding: 20px;
+}
+
+.story-content p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: #666;
+    text-indent: 2em;
+    font-size: 1.1em;
+}
+
+.story-ending {
+    text-align: right;
+    color: #ff69b4;
+    font-style: italic;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px dashed #ffd1dc;
+}
+
+@media (max-width: 768px) {
+    .our-story {
+        margin: 30px 20px;
+        padding: 30px 20px;
+    }
+    
+    .our-story h2 {
+        font-size: 1.8em;
+    }
+    
+    .story-content p {
+        font-size: 1em;
+    }
+}
+
+/* 爱心特效样式 */
+.love-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff6b8b;
+    transform: rotate(45deg);
+    animation: heartFloat 4s ease-in infinite;
+    opacity: 0;
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff6b8b;
+    border-radius: 50%;
+}
+
+.heart::before {
+    left: -10px;
+}
+
+.heart::after {
+    top: -10px;
+}
+
+@keyframes heartFloat {
+    0% {
+        transform: rotate(45deg) translateY(0) scale(0);
+        opacity: 0;
+    }
+    20% {
+        transform: rotate(45deg) translateY(-20px) scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: rotate(45deg) translateY(-1000px) scale(0);
+        opacity: 0;
+    }
+}
+
+/* 记忆卡片区域样式 */
+.memory-cards {
+    padding: 40px 0;
+    background: linear-gradient(to bottom, #fff5f5, #fff);
+    border-radius: 30px;
+    margin: 40px 0;
+}
+
+.cards-title {
+    text-align: center;
+    color: #ff6b8b;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.cards-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, #ffb6c1, #ffd1dc);
+    border-radius: 3px;
+}
+
+.grid-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    padding: 0 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    padding: 15px;
+    background: linear-gradient(45deg, #fff5f5, #fff);
+    border-radius: 20px;
+    overflow: visible;
+    transition: all 0.3s ease;
+    aspect-ratio: 3/4;
+}
+
+.card-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* 优化卡片悬停效果 */
+.gallery-item:hover {
+    transform: translateY(-10px) scale(1.02);
+}
+
+.gallery-item:hover .card-frame::before {
+    opacity: 1;
+}
+
+/* 修改图片样式 */
+.card-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* 优化标题和按钮样式 */
+.item-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .item-caption {
+    transform: translateY(0);
+}
+
+/* 响应式调整 */
+@media (max-width: 1200px) {
+    .grid-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-gallery {
+        grid-template-columns: 1fr;
+    }
+} 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="logo.jpeg" alt="Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">返回首页</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="main-content about-page">
+        <h1 class="about-title">关于我们</h1>
+        
+        <div class="notes-container">
+            <div class="note-editor">
+                <textarea id="noteInput" placeholder="写下你的想法..."></textarea>
+                <div class="note-controls">
+                    <input type="text" id="noteTitle" placeholder="标题">
+                    <button onclick="saveNote()" class="save-button">保存笔记</button>
+                </div>
+            </div>
+            
+            <div class="notes-list" id="notesList">
+                <!-- 笔记将通过 JavaScript 动态添加在这里 -->
+            </div>
+        </div>
+    </main>
+
+    <script src="about.js"></script>
+</body>
+</html> 
