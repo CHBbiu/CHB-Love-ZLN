@@ -24,14 +24,280 @@
             <div class="upload-section">
                 <label for="imageUpload" class="upload-button">
                     <span>上传照片</span>
-                    <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                    <input type="file" id="imageUpload" accept="image/*" multiple>
                 </label>
+                <p class="upload-info">支持多张上传，每张照片不超过5MB</p>
+                <div id="uploadProgress" class="upload-progress"></div>
             </div>
             <div class="photo-grid" id="photoGrid">
                 <!-- 这里会通过 JavaScript 动态添加照片 -->
             </div>
         </div>
     </main>
+
+    <!-- 添加照片预览模态框 -->
+    <div id="photoModal" class="photo-modal">
+        <span class="close-modal">&times;</span>
+        <img id="modalImage" src="" alt="照片预览">
+        <div class="modal-caption">
+            <input type="text" id="photoTitle" placeholder="添加照片标题...">
+            <p id="photoDate"></p>
+        </div>
+    </div>
 </body>
-<script src="gallery.js"></script>
+<script>
+// 照片墙专用的 JavaScript 代码
+document.addEventListener('DOMContentLoaded', function() {
+    const imageUpload = document.getElementById('imageUpload');
+    const photoGrid = document.getElementById('photoGrid');
+    const modal = document.getElementById('photoModal');
+    const modalImage = document.getElementById('modalImage');
+    const photoTitle = document.getElementById('photoTitle');
+    const photoDate = document.getElementById('photoDate');
+    let uploadedPhotos = [];
+
+    // 初始化 IndexedDB
+    function initIndexedDB() {
+        const request = indexedDB.open('PhotoGallery', 1);
+
+        request.onerror = () => {
+            console.error('IndexedDB 初始化失败');
+        };
+
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains('photos')) {
+                const store = db.createObjectStore('photos', { keyPath: 'id' });
+                store.createIndex('date', 'date');
+                store.createIndex('title', 'title');
+            }
+        };
+
+        request.onsuccess = () => {
+            loadPhotosFromIndexedDB();
+        };
+
+        return request;
+    }
+
+    // 处理图片上传
+    function handleImageUpload(files) {
+        const maxFileSize = 5 * 1024 * 1024; // 5MB
+        const maxTotalPhotos = 100; // 最大照片数量
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        const progressBar = document.getElementById('uploadProgress');
+
+        if (uploadedPhotos.length + files.length > maxTotalPhotos) {
+            alert(`最多只能上传${maxTotalPhotos}张照片`);
+            return;
+        }
+
+        Array.from(files).forEach((file, index) => {
+            if (!allowedTypes.includes(file.type)) {
+                alert(`${file.name} 格式不支持，请上传 JPG、PNG 或 GIF 格式的图片`);
+                return;
+            }
+
+            if (file.size > maxFileSize) {
+                alert(`${file.name} 超过5MB，请压缩后重新上传`);
+                return;
+            }
+
+            const reader = new FileReader();
+            
+            reader.onprogress = (event) => {
+                if (event.lengthComputable) {
+                    const progress = (event.loaded / event.total) * 100;
+                    progressBar.style.width = `${progress}%`;
+                    progressBar.textContent = `上传中: ${Math.round(progress)}%`;
+                }
+            };
+
+            reader.onload = (event) => {
+                const img = new Image();
+                img.src = event.target.result;
+                
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    let width = img.width;
+                    let height = img.height;
+                    const maxDimension = 1200;
+
+                    if (width > maxDimension || height > maxDimension) {
+                        if (width > height) {
+                            height = (height / width) * maxDimension;
+                            width = maxDimension;
+                        } else {
+                            width = (width / height) * maxDimension;
+                            height = maxDimension;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const compressedImage = canvas.toDataURL('image/jpeg', 0.8);
+                    
+                    const photoData = {
+                        id: Date.now() + index,
+                        url: compressedImage,
+                        title: file.name.split('.')[0],
+                        date: new Date().toLocaleDateString(),
+                        timestamp: Date.now()
+                    };
+
+                    savePhotoToIndexedDB(photoData);
+                };
+            };
+
+            reader.readAsDataURL(file);
+        });
+
+        // 重置进度条
+        setTimeout(() => {
+            progressBar.style.width = '0';
+            progressBar.textContent = '';
+        }, 2000);
+    }
+
+    // 保存照片到 IndexedDB
+    function savePhotoToIndexedDB(photoData) {
+        const request = indexedDB.open('PhotoGallery', 1);
+
+        request.onsuccess = (event) => {
+            const db = event.target.result;
+            const transaction = db.transaction(['photos'], 'readwrite');
+            const store = transaction.objectStore('photos');
+
+            store.add(photoData).onsuccess = () => {
+                addPhotoToGrid(photoData);
+                uploadedPhotos.push(photoData);
+            };
+        };
+    }
+
+    // 从 IndexedDB 加载照片
+    function loadPhotosFromIndexedDB() {
+        const request = indexedDB.open('PhotoGallery', 1);
+
+        request.onsuccess = (event) => {
+            const db = event.target.result;
+            const transaction = db.transaction(['photos'], 'readonly');
+            const store = transaction.objectStore('photos');
+            const getAllRequest = store.getAll();
+
+            getAllRequest.onsuccess = () => {
+                uploadedPhotos = getAllRequest.result.sort((a, b) => b.timestamp - a.timestamp);
+                photoGrid.innerHTML = ''; // 清空现有内容
+                uploadedPhotos.forEach(photo => addPhotoToGrid(photo));
+            };
+        };
+    }
+
+    // 添加照片到网格
+    function addPhotoToGrid(photoData) {
+        const photoItem = document.createElement('div');
+        photoItem.className = 'photo-item';
+        
+        photoItem.innerHTML = `
+            <img src="${photoData.url}" alt="${photoData.title}">
+            <div class="photo-overlay">
+                <h3>${photoData.title}</h3>
+                <p>${photoData.date}</p>
+                <div class="photo-actions">
+                    <button class="edit-button" onclick="editPhoto(${photoData.id})">编辑</button>
+                    <button class="delete-button" onclick="deletePhoto(${photoData.id})">删除</button>
+                </div>
+            </div>
+        `;
+
+        photoGrid.insertBefore(photoItem, photoGrid.firstChild);
+    }
+
+    // 删除照片
+    window.deletePhoto = function(photoId) {
+        if (confirm('确定要删除这张照片吗？')) {
+            const request = indexedDB.open('PhotoGallery', 1);
+
+            request.onsuccess = (event) => {
+                const db = event.target.result;
+                const transaction = db.transaction(['photos'], 'readwrite');
+                const store = transaction.objectStore('photos');
+
+                store.delete(photoId).onsuccess = () => {
+                    loadPhotosFromIndexedDB(); // 重新加载照片
+                };
+            };
+        }
+    };
+
+    // 编辑照片标题
+    window.editPhoto = function(photoId) {
+        const photo = uploadedPhotos.find(p => p.id === photoId);
+        if (photo) {
+            modalImage.src = photo.url;
+            photoTitle.value = photo.title;
+            photoDate.textContent = photo.date;
+            modal.style.display = 'block';
+
+            // 保存编辑
+            photoTitle.onchange = () => {
+                const request = indexedDB.open('PhotoGallery', 1);
+
+                request.onsuccess = (event) => {
+                    const db = event.target.result;
+                    const transaction = db.transaction(['photos'], 'readwrite');
+                    const store = transaction.objectStore('photos');
+
+                    photo.title = photoTitle.value;
+                    store.put(photo).onsuccess = () => {
+                        loadPhotosFromIndexedDB();
+                    };
+                };
+            };
+        }
+    };
+
+    // 关闭模态框
+    document.querySelector('.close-modal').onclick = () => {
+        modal.style.display = 'none';
+    };
+
+    // 点击模态框外部关闭
+    window.onclick = (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    };
+
+    // 事件监听器
+    imageUpload.addEventListener('change', (e) => {
+        handleImageUpload(e.target.files);
+    });
+
+    // 拖放上传
+    const uploadSection = document.querySelector('.upload-section');
+    
+    uploadSection.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadSection.classList.add('drag-over');
+    });
+
+    uploadSection.addEventListener('dragleave', () => {
+        uploadSection.classList.remove('drag-over');
+    });
+
+    uploadSection.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadSection.classList.remove('drag-over');
+        handleImageUpload(e.dataTransfer.files);
+    });
+
+    // 初始化
+    initIndexedDB();
+});
+</script>
 </html> 
