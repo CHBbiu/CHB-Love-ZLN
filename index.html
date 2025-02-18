@@ -172,14 +172,16 @@
             <img src="贴纸6.jpg" alt="生气" class="sticker sticker-bottom-right">
         </div>
 
-        <!-- 在 main-content 中添加照片墙部分 -->
+        <!-- 修改照片墙部分的代码 -->
         <div class="section" id="gallery">
             <div class="gallery-container">
                 <div class="upload-section">
                     <label for="imageUpload" class="upload-button">
                         <span>上传照片</span>
-                        <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                        <input type="file" id="imageUpload" accept="image/*" multiple>
                     </label>
+                    <p class="upload-info">支持多张上传，每张照片不超过5MB</p>
+                    <div id="uploadProgress" class="upload-progress"></div>
                 </div>
                 <div class="photo-grid" id="photoGrid">
                     <!-- 这里会通过 JavaScript 动态添加照片 -->
